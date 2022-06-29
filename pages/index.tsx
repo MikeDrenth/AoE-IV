@@ -7,41 +7,6 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 
-const civilization = [
-  {
-    id: 0,
-    name: "Abbasid",
-  },
-  {
-    id: 1,
-    name: "Chinese",
-  },
-  {
-    id: 2,
-    name: "Delhi",
-  },
-  {
-    id: 3,
-    name: "English",
-  },
-  {
-    id: 4,
-    name: "French",
-  },
-  {
-    id: 5,
-    name: "Holy Romand Empire",
-  },
-  {
-    id: 6,
-    name: "Mongols",
-  },
-  {
-    id: 7,
-    name: "Rus",
-  },
-];
-
 const Home: NextPage = (request) => {
   return (
     <div className={styles.container}>
