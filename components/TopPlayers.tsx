@@ -1,10 +1,4 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import React from "react";
 import { SearchField } from "./SearchField";
 import Link from "next/link";
 
@@ -37,43 +31,42 @@ interface PlayerProps {
 }
 
 const TopPlayers: React.FC = ({ request }: PlayerList) => {
-  console.log(request.leaderboard);
+  console.log(request);
   return (
     <>
-      <h3>
-        Ranked leaderboard <SearchField />
-      </h3>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Wins</TableCell>
-              <TableCell align="right">Rank</TableCell>
-              <TableCell align="right">Rating</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {request.leaderboard.map(
-              ({ name, profile_id, wins, rank, rating }: PlayerProps) => (
-                <TableRow
-                  key={profile_id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    <Link href={`/player/${encodeURIComponent(profile_id)}`}>
-                      <a>{name}</a>
-                    </Link>
-                  </TableCell>
-                  <TableCell align="right">{wins}</TableCell>
-                  <TableCell align="right">{rank}</TableCell>
-                  <TableCell align="right">{rating}</TableCell>
-                </TableRow>
-              )
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <h3 className="text-4xl font-sans mb-4">Leaderboard</h3>
+      <table className="table-auto bg-purple-600 border-2 border-purple-400">
+        <thead>
+          <tr>
+            <th className="p-3">Rank</th>
+            <th className="p-3 text-left">Name</th>
+            <th className="p-3">Wins</th>
+            <th className="p-3">WR %</th>
+            <th className="p-3">Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          {request.leaderboard.map(
+            (
+              { name, profile_id, wins, rank, rating, games }: PlayerProps,
+              index: number
+            ) => (
+              <tr key={index} className={index % 2 === 0 ? "even" : "odd"}>
+                <td className="p-3">{rank}</td>
+
+                <td className="p-3">
+                  <Link href={`/player/${encodeURIComponent(profile_id)}`}>
+                    <a>{name}</a>
+                  </Link>
+                </td>
+                <td className="p-3">{rating}</td>
+                <td className="p-3">{wins}</td>
+                <td className="p-3">{Math.round((100 / games) * wins)}%</td>
+              </tr>
+            )
+          )}
+        </tbody>
+      </table>
     </>
   );
 };

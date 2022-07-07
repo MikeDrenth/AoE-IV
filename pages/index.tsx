@@ -3,9 +3,6 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import TopPlayers from "../components/TopPlayers";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 
 const Home: NextPage = (request) => {
   return (
@@ -17,15 +14,7 @@ const Home: NextPage = (request) => {
       </Head>
 
       <main className={styles.main}>
-        <Container maxWidth="xl">
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={8}>
-                <TopPlayers request={request.request} />
-              </Grid>
-            </Grid>
-          </Box>
-        </Container>
+        <TopPlayers request={request.request} />
       </main>
     </div>
   );
