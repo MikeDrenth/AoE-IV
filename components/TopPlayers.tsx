@@ -34,15 +34,17 @@ const TopPlayers: React.FC = ({ request }: PlayerList) => {
   console.log(request);
   return (
     <>
-      <h3 className="text-4xl font-sans mb-4">Leaderboard</h3>
-      <table className="table-auto bg-purple-600 border-2 border-purple-400">
+      <h3 className="text-4xl font-sans mb-4 text-white font-light">
+        Leaderboard
+      </h3>
+      <table className="table-auto bg-[#1d1d1d] rounded-md font-sans font-light">
         <thead>
           <tr>
-            <th className="p-3">Rank</th>
-            <th className="p-3 text-left">Name</th>
-            <th className="p-3">Wins</th>
-            <th className="p-3">WR %</th>
-            <th className="p-3">Rating</th>
+            <th className="p-3 pl-5">Rank</th>
+            <th className="p-3 pl-5 text-left">Name</th>
+            <th className="p-3 pl-5">Wins</th>
+            <th className="p-3 pl-5">WR %</th>
+            <th className="p-3 pl-5">Rating</th>
           </tr>
         </thead>
         <tbody>
@@ -51,17 +53,22 @@ const TopPlayers: React.FC = ({ request }: PlayerList) => {
               { name, profile_id, wins, rank, rating, games }: PlayerProps,
               index: number
             ) => (
-              <tr key={index} className={index % 2 === 0 ? "even" : "odd"}>
-                <td className="p-3">{rank}</td>
+              <tr
+                key={index}
+                className={`{index} % 2 === 0 ? "even" : "odd" hover:bg-zinc-900 hover:text-violet-400`}
+              >
+                <td className="p-3 pl-5 border-t border-slate-700">{rank}</td>
 
-                <td className="p-3">
+                <td className="p-3 pl-5 border-t border-slate-700">
                   <Link href={`/player/${encodeURIComponent(profile_id)}`}>
                     <a>{name}</a>
                   </Link>
                 </td>
-                <td className="p-3">{rating}</td>
-                <td className="p-3">{wins}</td>
-                <td className="p-3">{Math.round((100 / games) * wins)}%</td>
+                <td className="p-3 pl-5 border-t border-slate-700">{rating}</td>
+                <td className="p-3 pl-5 border-t border-slate-700">{wins}</td>
+                <td className="p-3 pl-5 border-t border-slate-700">
+                  {Math.round((100 / games) * wins)}%
+                </td>
               </tr>
             )
           )}
