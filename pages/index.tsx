@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import TopPlayers from "../components/TopPlayers";
+import PlayerCard from "../components/PlayerCard";
 import Link from "next/link";
 
 const Home: NextPage = (request) => {
@@ -41,7 +41,7 @@ const Home: NextPage = (request) => {
       </nav>
 
       <main className={`container mx-auto my-10`}>
-        <TopPlayers request={request.request} />
+        <PlayerCard request={request.request} />
         <h4>Check out our features</h4>
         <div className="columns-3 mt-10">
           <div className="w-full text-center">
@@ -84,9 +84,7 @@ const Home: NextPage = (request) => {
 };
 
 export const getStaticProps = async () => {
-  const res = await fetch(
-    "https://aoeiv.net/api/leaderboard?game=aoe4&event_leaderboard_id=1&start=1&count=10"
-  );
+  const res = await fetch("https://aoe4world.com/api/v0/leaderboards/rm_solo");
   // console.log(res.json());
   const request = await res.json();
   return {

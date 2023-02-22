@@ -48,9 +48,17 @@ const TopPlayers: React.FC = ({ request }: PlayerList) => {
           </tr>
         </thead>
         <tbody>
-          {request.leaderboard.map(
+          {request.players.map(
             (
-              { name, profile_id, wins, rank, rating, games }: PlayerProps,
+              {
+                name,
+                profile_id,
+                rank,
+                rating,
+                win_rate,
+                wins_count,
+                last_rating_change,
+              }: PlayerProps,
               index: number
             ) => (
               <tr
@@ -64,10 +72,14 @@ const TopPlayers: React.FC = ({ request }: PlayerList) => {
                     <a>{name}</a>
                   </Link>
                 </td>
-                <td className="p-3 pl-5 border-t border-slate-700">{rating}</td>
-                <td className="p-3 pl-5 border-t border-slate-700">{wins}</td>
                 <td className="p-3 pl-5 border-t border-slate-700">
-                  {Math.round((100 / games) * wins)}%
+                  {wins_count}
+                </td>
+                <td className="p-3 pl-5 border-t border-slate-700">
+                  {win_rate} %
+                </td>
+                <td className="p-3 pl-5 border-t border-slate-700">
+                  {rating} : {last_rating_change}
                 </td>
               </tr>
             )

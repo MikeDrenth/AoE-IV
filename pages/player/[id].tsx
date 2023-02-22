@@ -45,9 +45,7 @@ const Player: NextPage = ({ matches }) => {
 
 export async function getServerSideProps() {
   const [matchesRes] = await Promise.all([
-    fetch(
-      `https://aoeiv.net/api/player/matches?game=aoe4&profile_id=6943917&count=10`
-    ),
+    fetch(`https://aoe4world.com/api/v0/players/4635035`),
   ]);
   const [matches] = await Promise.all([matchesRes.json()]);
   return { props: { matches } };
