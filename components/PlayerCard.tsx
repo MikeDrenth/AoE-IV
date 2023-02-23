@@ -2,6 +2,14 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+// Styling components
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import { Button, CardActionArea, CardActions } from "@mui/material";
+
 interface PlayerList {
   count: number;
   event_leaderboard: number;
@@ -31,7 +39,7 @@ interface PlayerProps {
 }
 
 const PlayerCard: React.FC = ({ request }: PlayerList) => {
-  console.log(request);
+  console.log(request.players);
   return (
     <>
       {request.players.map(
@@ -48,22 +56,54 @@ const PlayerCard: React.FC = ({ request }: PlayerList) => {
           }: PlayerProps,
           index: number
         ) => (
-          <div
+          <Card
             key={index}
-            className={`{index} % 2 === 0 ? "even" : "odd" hover:bg-zinc-900 hover:text-violet-400`}
+            sx={{
+              display: "flex",
+              maxWidth: "450px",
+              backgroundColor: "#323232",
+              color: "#FFFFFF",
+              marginBottom: "1.5rem",
+            }}
           >
-            <Image
-              src={`${avatars.medium}`}
-              alt="Picture of the author"
-              width={500}
-              height={500}
+            <CardMedia
+              component="img"
+              image={`https:${avatars.full.replaceAll("https:", "")}`}
+              alt={name}
+              sx={{
+                marginRight: "auto",
+                width: "170px",
+                height: "175px",
+                objectFit: "cover",
+                margin: "0",
+              }}
             />
-            <Link href={`/player/${encodeURIComponent(profile_id)}`}>
-              <a>{name}</a>
-            </Link>
-            {wins_count}
-            {win_rate} %{rating} : {last_rating_change}
-          </div>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <CardContent
+                sx={{
+                  flex: "1 0 auto",
+                  flexDirection: "column",
+                  display: "flex",
+                  color: "#FFFFFF",
+                }}
+              >
+                <Typography gutterBottom variant="h5" component="div">
+                  {name}
+                </Typography>
+                <Typography variant="body2" component="div" color="#FFFFFF">
+                  <p>Rank: {rank}</p>
+                  <p>Wins: {wins_count}</p>
+                  <p>
+                    Rating: {rating}{" "}
+                    <small>{last_rating_change ?? last_rating_change}</small>
+                  </p>
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" color="primary"></Button>
+              </CardActions>
+            </Box>
+          </Card>
         )
       )}
     </>
